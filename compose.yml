@@ -1,0 +1,32 @@
+services:
+   proddb:
+     build:
+       context: ./Docker-files/db
+     image: saurabhkulkarni12/productdb
+     container_name: proddb
+     ports:
+       - "3307:3306"
+     volumes:
+       - proddbdata:/var/lib/mysql
+     environment:
+       - MYSQL_ROOT_PASSWORD=winjit3439
+   prodapp:
+     build:
+       context: ./Docker-files/app
+     image: saurabhkulkarni12/productapp
+     container_name: prodapp
+     ports:
+       - "8083:8080"
+     volumes:
+       - prodappdata:/usr/local/tomcat/webapps
+   prodweb:
+     build:
+       context: ./Docker-files/web
+     image: saurabhkulkarni12/productweb
+     container_name: prodweb
+     ports:
+       - "81:81"
+volumes:
+  proddbdata: {}
+  prodappdata: {}
+
