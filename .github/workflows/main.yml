@@ -1,0 +1,16 @@
+name: productcrudapp actions
+on: workflow_dispatch
+env:
+  AWS_REGION: us-east-1
+  ECR_REPOSITORY: productcrudapp
+  EKS_CLUSTER_NAME: productcrudapp-eks
+
+jobs:
+   Testing:
+     runs-on: ubuntu-latest
+     steps:
+       - name: Code chekout
+         uses: actions/checkout@v4
+
+       - name: Maven test
+         run: mvn test
