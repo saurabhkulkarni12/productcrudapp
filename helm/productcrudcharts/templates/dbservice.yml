@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proddb
+spec:
+  selector:
+    app: proddb  # Selects pods with the label 'app: my-app'
+  ports:
+    - protocol: TCP
+      port: 3306      # The port the service listens on
+      targetPort: proddb-port  # The port the application in the pod is listening on
+  type: ClusterIP  # Explicitly defines the service type as ClusterIP

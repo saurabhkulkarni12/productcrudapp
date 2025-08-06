@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: prodapp
+  labels:
+    app: prodapp
+spec:
+  replicas: 1 # Desired number of pods
+  selector:
+    matchLabels:
+      app: prodapp
+  template:
+    metadata:
+      labels:
+        app: prodapp
+    spec:
+      containers:
+      - name: prodapp
+        image: {{ .Values.appimage}}:{{ .Values.apptag}}
+        imagePullPolicy: Always
+        ports:
+        - name: prodapp-port  
+          containerPort: 8080
+      initContainers:
+      - name: init-mydb
+        image: busybox:latest
+        command: ['sh', '-c', "until nslookup proddb.$(cat /var/run/secrets/kubernetes.io/serviceaccount/namespace).svc.cluster.local; do echo waiting for mydb; sleep 2; done"]
