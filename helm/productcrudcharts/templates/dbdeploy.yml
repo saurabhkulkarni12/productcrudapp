@@ -17,9 +17,9 @@ spec:
       containers:
       - name: proddb
         image: saurabhkulkarni12/productdb
-        volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: prod-db-data
+        #volumeMounts:
+        #- mountPath: /var/lib/mysql
+          #name: prod-db-data
         ports:
         - name: proddb-port  
           containerPort: 3306
@@ -29,14 +29,14 @@ spec:
              secretKeyRef:
                name: app-secret
                key: db-pass
-      volumes:
-        - name: prod-db-data
-          persistentVolumeClaim:
-            claimName: db-pv-claim
-      initContainers:
-      - name: busybox
-        image: busybox:latest
-        args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
-        volumeMounts:
-        - mountPath: /var/lib/mysql
-          name: prod-db-data
+      #volumes:
+        #- name: prod-db-data
+          #persistentVolumeClaim:
+            #claimName: db-pv-claim
+      #initContainers:
+      #- name: busybox
+        #image: busybox:latest
+        #args: ["rm", "-rf", "/var/lib/mysql/lost+found"]
+        #volumeMounts:
+        #- mountPath: /var/lib/mysql
+          #name: prod-db-data
